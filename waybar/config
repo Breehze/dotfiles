@@ -1,43 +1,39 @@
 {
   "layer": "top",
-    "position": "top",
-    "margin-top": 0,
-    "margin-left" : 0,
-    "margin-right": 0,
-    "modules-left": [
-      "clock",
-      "network"
-      ],
-    "modules-center": [
-        "hyprland/workspaces"
-      ],
-    "modules-right": [
-      "memory",
-      "cpu",
-      "pulseaudio",
-    ],
-    "tray": {
-      "icon-size": 24,
-      "spacing": 10
-    },
-    "hyprland/window": {
-      "format": " {}",
-      "rewrite": {
-          "(\\d\\. )?(.*) - Chromium": "<span color=\"#4285F4\"></span>  $2 ",
-          "nvim (.*)": "<span color=\"#57A143\"></span>  $1",
-          "nvim": "<span color=\"#57A143\">  Neovim</span> ",
-          "ranger(.*)": "<span color=\"#ffffff\"></span>  $1",
-          //"kitty (.*)": "<span color=\"#ffffff\"></span>  $1",
-          "Search(.*)": "<span color=\"#a855f7\"></span>  Search$1",
-      },
-      "separate-outputs": false
-    },
-    "hyprland/submap": {
-      "format": "✌️ {}",
-      "max-length": 8,
-      "tooltip": true
-    },
-    "hyprland/workspaces": {
+  "position": "top",
+  "width": 1250,
+  "height": 40,
+  "modules-left": [
+    "cpu",
+    "memory",
+    "temperature",
+    "backlight"
+  ],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "power-profiles-daemon",
+    "battery",
+    "clock",
+  ],
+  "margin-right": 20,
+  "margin-left": 20,
+  "margin-bottom": 3,
+  "margin-top" : 5,
+  "spacing": 6,
+
+  "temperature": {
+    "format": " {temperatureC}°C",
+  },
+
+  "backlight": {
+    "format": "{percent}% {icon}",
+    "format-icons": [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+  },
+
+
+"hyprland/workspaces": {
       "format": "{icon}",
       "format-icons": {
         "1": "一",
@@ -53,62 +49,65 @@
         "-99": "",
         "default": ""
       }
-    }, 
-    "temperature": {
-      "format": "{icon} {temperatureC}°C",
-      "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-      "critical-threshold": 80,
-      "format-icons": ["", "", ""]
     },
-    "memory": {
-      "format": " {}%",
+"memory": {
+      "format": "  {}%",
       "tooltip": "false"
     },
-    "cpu": {
-      "format": " {usage}%",
+
+"cpu": {
+      "format": "  {usage}%",
       "tooltip": "false"
     },
-    "custom/powermenu": {
-      "format": "",
-      "tooltip": false,
-      "on-click": "exec wlogout -p layer-shell",
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": " ",
+    "format-icons": {
+      "default": [" "],
     },
-    "custom/updates": {
-      "format": "<span color=\"#61afef\"></span> {}",
-      "tooltip": false,
-      "interval": 3600,
-      "exec": "exec $HOME/.config/waybar/checkupdate.sh"
+    "on-click": "pavucontrol",
+  },
+
+  "network": {
+    "format-wifi": "{icon}",
+    "format-ethernet" : "󰈁", 
+    "format-disconnected": "󰤭 ",
+    "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "],
+    "on-click": "kitty -e nmtui",
+    "tooltip": false,
+  },
+
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "format-icons": {
+      "performance": "",
+      "balanced": "",
+      "power-saver": "",
     },
-    "pulseaudio": {
-      "format": "{volume}% {icon}",
-      "format-bluetooth": "{volume}% {icon} ",
-      "format-muted": "",
-      "format-icons": {
-          "headphone": "",
-          "hands-free": "",
-          "headset": "",
-          "phone": "",
-          "portable": "",
-          "car": "",
-          "default": ["", ""]
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-time": "{H} h {M} min",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-charging": "{capacity}% 󰂄",
+  },
+
+  "clock": {
+    "interval": 60,
+    "format": "{:%H:%M}",
+    "max-length": 25,
+    "tooltip-format": "<span><small>{calendar}</small></span>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "week-pos": "right",
+      "format": {
+        "months": "<span color='#8ec07c'><b>{}</b></span>",
+        "days": "<span color='#ebdbb2'><b>{}</b></span>",
+        "weekdays": "<span color='#fabd2f'><b>{}</b></span>",
+        "today": "<span color='#fb4934'><b><u>{}</u></b></span>",
       },
-      "scroll-step": 1,
-      "on-click": "pavucontrol"
     },
-    "clock": {
-      //"format": "<span color=\"#56b6c2\"></span> {:%H:%M}",
-      "format": "{:%H:%M}",
-      "interval": 60,
-      "tooltip": true,
-      "tooltip-format": "{:%d %B %H:%M}"
-    },
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "󰈁 {ifname}",
-        "tooltip-format": " {ifname} via {gwaddr}",
-        "format-linked": " {ifname} (No IP)",
-        "format-disconnected": "Disconnected 󰈂 {ifname}",
-        "format-alt": " {ifname}: {ipaddr}/{cidr}"
-    }
+  },
 }

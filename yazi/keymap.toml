@@ -1,8 +1,10 @@
 # A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
 "$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
-
 [manager]
+prepend_keymap = [
+    {on = [ "<C-'>" ],run = '''shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm''',desc = "yank"}
+]
 
 keymap = [
 	{ on = [ "<Esc>" ], run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
@@ -75,7 +77,7 @@ keymap = [
 	{ on = [ "D" ],         run = "remove --permanently",       desc = "Permanently delete the files" },
 	{ on = [ "a" ],         run = "create",                     desc = "Create a file or directory (ends with / for directories)" },
 	{ on = [ "r" ],         run = "rename --cursor=before_ext", desc = "Rename a file or directory" },
-	{ on = [ ";" ],         run = "shell",                      desc = "Run a shell command" },
+	{ on = [ ";" ],         run = "shell --interactive",                      desc = "Run a shell command" },
 	{ on = [ ":" ],         run = "shell --block",              desc = "Run a shell command (block the UI until the command finishes)" },
 	{ on = [ "." ],         run = "hidden toggle",              desc = "Toggle the visibility of hidden files" },
 	{ on = [ "s" ],         run = "search fd",                  desc = "Search files by name using fd" },
@@ -307,3 +309,5 @@ keymap = [
 	# Filtering
 	{ on = [ "/" ], run = "filter", desc = "Apply a filter for the help items" },
 ]
+
+

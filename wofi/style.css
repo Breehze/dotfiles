@@ -1,3 +1,5 @@
+@import ".cache/wal/colors-waybar.css";
+
 * {
   transition: 0.2s;
 }
@@ -9,7 +11,7 @@ window {
 
 window {
     margin: 0px;
-    border: 2px solid #ffffff;
+    border: 2px solid @color1;
 /*
     background-color: #161925;
 */
@@ -22,9 +24,9 @@ window {
     margin: 20px;
     padding-left: 20px;
     border: none;
-    color: #000;
+    color: #ffffff;
     font-weight: bold;
-    background: linear-gradient(90deg, #ffffff 0%, #bbbbbb 100%);
+    background: @color12; /*linear-gradient(90deg, #ffffff 0%, #bbbbbb 100%);*/
    	outline: none;
     border-radius: 16px;
 }
@@ -95,5 +97,5 @@ window {
     margin: 0px;
     border: none;
     border-radius: 16px;
-    background: linear-gradient(90deg, #ffffff 0%, #bbbbbb 100%);
+    background: @color12;
 }

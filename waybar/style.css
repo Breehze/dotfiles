@@ -1,86 +1,110 @@
+@import url("/home/boris/.cache/wal/colors-waybar.css");
+
 * {
-  border: 0;
-  border-radius: 0;
-  min-height: 0;
-  margin: 0;
-  padding: 2px;
-}
-#waybar {
-  /*border-radius : 16px;*/
-  /*border : solid 2px rgba(247, 47, 150, 0.7) ;*/
-  background: rgba(0,0,0,0);
-  color: #00D2D4;
-  font-size: 16px;
-  font-family: 'JetBrainsMono Nerd Font';
-  font-weight : bolder;
+   font-family: "JetBrainsMono Nerd Font";
+   font-size: 16px;
+   font-weight: bolder;
 }
 
-#workspaces button {
-  padding: 0 5px;
-  color: #00D2D4;
-}
-#workspaces button.active {
-  color: rgba(100,100,100,100);
-}
-
-#workspaces{
-    border-radius: 10px 10px 70px 70px;
-    border: 3px solid @foreground;
-    padding-left: 2.0rem;
-    padding-right: 2.0rem;
+window#waybar {
     background: rgba(0,0,0,0.8);
-}
-#clock{
-    background: rgba(0,0,0,0.8);
-    border-radius: 10px 0px 0px 10px;
-    border: 3px solid @foreground;
-    border-right: none;
-    padding-left: 2.0rem;
-    padding-right: 2.0rem;
-}
-#network {
-    background: rgba(0,0,0,0.8);
-    border-radius: 0px 10px 70px 0px;
-    border: 3px solid @foreground;
-    border-left: None;
-    padding-left: 2.0rem;
-    padding-right: 2.0rem;
-
+    color : @color3;
+    min-height: 0;
+    border-radius: 6px;
 }
 
-#custom-updates {
-  color: #1788e4;
+.modules-left,
+.modules-center,
+.modules-right {
 }
 
-#pulseaudio {
-    background: rgba(0,0,0,0.8);
-    border-radius: 0px 10px 10px 0px;
-    border: 3px solid @foreground;
-    border-left: None;
-    padding-left: 2.0rem;
-    padding-right: 2.0rem;
-
+button {
+	box-shadow: inset 0 -3px transparent;
+	border: none;
+	border-radius: 0;
 }
 
-#cpu {
-    border: 3px solid @foreground;
-    background: rgba(0,0,0,0.8);
-    border-left : None;
-    border-right : None;
-    border-right: None;
-    padding-left: 2.0rem;
-    padding-right: 2.0rem;
+button:hover {
+	background: inherit;
+    	box-shadow: inset 0 0;
 }
 
 #temperature {
-  color: #98c379;
+	border-radius: 6px;
+	margin: 4px 5px 4px 5px;
+	padding: 0 4px;
 }
 
-#memory {
-    border-radius: 10px 0px 0px 70px;
-    border: 3px solid @foreground;
-    background: rgba(0,0,0,0.8);
-    border-right: None;
-    padding-left: 2.0rem;
-    padding-right: 2.0rem;
+
+#backlight {
+	border-radius: 6px;
+	margin: 4px 5px 4px 5px;
+	padding: 0 4px;
+}
+
+#cpu{
+    border-radius: 6px;
+	margin: 4px 5px 4px 5px;
+	padding: 0 4px;
+}
+
+#memory{
+    border-radius: 6px;
+	margin: 4px 5px 4px 5px;
+	padding: 0 4px;
+}
+
+#workspaces {
+	margin: 4px 5px 4px 5px;
+	border-radius: 6px
+}
+
+#workspaces button {
+    color: @color3;
+	padding: 0 4px;
+	margin: 2px 5px 0 5px;
+	border-radius: 0;
+
+}
+
+#workspaces button:hover {
+	padding: 0 4px;
+	margin: 2px 5px 0 5px;
+	border-radius: 0;
+}
+
+#workspaces button.active {
+  color: @color7;
+}
+
+#pulseaudio {
+	border-radius: 6px;
+	margin: 4px 5px 4px 5px;
+	padding: 0 4px;
+}
+
+#network {
+	border-radius: 6px;
+	margin: 4px 5px 4px 5px;
+	padding: 0 4px;
+}
+
+#power-profiles-daemon {
+	border-radius: 6px;
+	margin: 4px 5px 4px 5px;
+    padding-left: 5px;
+    padding-right: 15px;
+}
+
+#battery {
+	border-radius: 6px;
+	margin: 4px 5px 4px 5px;
+	padding: 0 4px;
+}
+
+
+#clock {
+	border-radius: 6px;
+	margin: 4px 5px 4px 5px;
+	padding: 0 4px;
 }
