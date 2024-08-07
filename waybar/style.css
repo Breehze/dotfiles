@@ -1,3 +1,5 @@
+@import url("/home/boris/.cache/wal/colors-waybar.css");
+
 * {
   border: 0;
   border-radius: 0;
@@ -9,7 +11,7 @@
   /*border-radius : 16px;*/
   /*border : solid 2px rgba(247, 47, 150, 0.7) ;*/
   background: rgba(0,0,0,0);
-  color: #00D2D4;
+  color: @color1;
   font-size: 16px;
   font-family: 'JetBrainsMono Nerd Font';
   font-weight : bolder;
@@ -17,7 +19,7 @@
 
 #workspaces button {
   padding: 0 5px;
-  color: #00D2D4;
+  color: @color1;
 }
 #workspaces button.active {
   color: rgba(100,100,100,100);
@@ -25,7 +27,7 @@
 
 #workspaces{
     border-radius: 10px 10px 70px 70px;
-    border: 3px solid @foreground;
+    border: 3px solid @color1;
     padding-left: 2.0rem;
     padding-right: 2.0rem;
     background: rgba(0,0,0,0.8);
@@ -33,7 +35,7 @@
 #clock{
     background: rgba(0,0,0,0.8);
     border-radius: 10px 0px 0px 10px;
-    border: 3px solid @foreground;
+    border: 3px solid @color1;
     border-right: none;
     padding-left: 2.0rem;
     padding-right: 2.0rem;
@@ -41,7 +43,7 @@
 #network {
     background: rgba(0,0,0,0.8);
     border-radius: 0px 10px 70px 0px;
-    border: 3px solid @foreground;
+    border: 3px solid @color1;
     border-left: None;
     padding-left: 2.0rem;
     padding-right: 2.0rem;
@@ -55,7 +57,7 @@
 #pulseaudio {
     background: rgba(0,0,0,0.8);
     border-radius: 0px 10px 10px 0px;
-    border: 3px solid @foreground;
+    border: 3px solid @color1;
     border-left: None;
     padding-left: 2.0rem;
     padding-right: 2.0rem;
@@ -63,7 +65,7 @@
 }
 
 #cpu {
-    border: 3px solid @foreground;
+    border: 3px solid @color1;
     background: rgba(0,0,0,0.8);
     border-left : None;
     border-right : None;
@@ -78,8 +80,18 @@
 
 #memory {
     border-radius: 10px 0px 0px 70px;
-    border: 3px solid @foreground;
+    border: 3px solid @color1;
     background: rgba(0,0,0,0.8);
+    border-right: None;
+    padding-left: 2.0rem;
+    padding-right: 2.0rem;
+}
+
+#battery{
+    border: 3px solid @color1;
+    background: rgba(0,0,0,0.8);
+    border-left : None;
+    border-right : None;
     border-right: None;
     padding-left: 2.0rem;
     padding-right: 2.0rem;
