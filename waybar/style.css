@@ -1,7 +1,7 @@
 @import url("/home/boris/.cache/wal/colors-waybar.css");
 
 * {
-   font-family: "JetBrainsMono Nerd Font";
+   font-family: "Iosevka Medium";
    font-size: 16px;
    font-weight: bolder;
 }
@@ -10,7 +10,7 @@ window#waybar {
     background: rgba(0,0,0,0.8);
     color : @color3;
     min-height: 0;
-    border-radius: 6px;
+    border-radius: 3px;
 }
 
 .modules-left,

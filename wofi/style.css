@@ -5,18 +5,15 @@
 }
 
 window {
-	font-family: "JetBrains Nerd Font Mono";
+	font-family: "Iosevka-Light";
 	font-size: 13px;
 }
 
 window {
     margin: 0px;
     border: 2px solid @color1;
-/*
-    background-color: #161925;
-*/
-    background-color: rgba(0,0,0,0.8);
-    border-radius: 16px;
+    border-radius : 3px;
+    background-color: rgba(0,0,0,0.6);
 }
 
 #input {

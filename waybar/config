@@ -19,8 +19,8 @@
   ],
   "margin-right": 20,
   "margin-left": 20,
-  "margin-bottom": 3,
-  "margin-top" : 5,
+  "margin-bottom": 0,
+  "margin-top" : 10,
   "spacing": 6,
 
   "temperature": {
@@ -36,16 +36,16 @@
 "hyprland/workspaces": {
       "format": "{icon}",
       "format-icons": {
-        "1": "一",
-        "2": "二",
-        "3": "三",
-        "4": "四",
-        "5": "五",
-        "6": "六",
-        "7": "七",
-        "8": "八",
-        "9": "九",
-        "10": "十",
+        "1": "I",
+        "2": "II",
+        "3": "III",
+        "4": "IV",
+        "5": "V",
+        "6": "VI",
+        "7": "VII",
+        "8": "VIII",
+        "9": "IX",
+        "10": "X",
         "-99": "",
         "default": ""
       }
@@ -63,7 +63,7 @@
     "format": "{icon} {volume}%",
     "format-muted": " ",
     "format-icons": {
-      "default": [" "],
+      "default": ["  "],
     },
     "on-click": "pavucontrol",
   },
