@@ -1,0 +1,227 @@
+(defpoll time :interval "1s" `date "+%H:%M"`)
+
+(deflisten workspace `./Scripts/hyprlandWorkspaces.sh`)
+(deflisten battery `./Scripts/battery.sh`)
+(deflisten network `./Scripts/net.sh`)
+(deflisten cats `./Scripts/cats.sh`)
+
+(defvar showCal false)
+(defvar cal "(calendar :day 25)")
+(defvar nothing "")
+
+;; WINDOWS ;;
+
+(defwindow barcontainer
+           :monitor 0
+           :geometry (geometry :x "0%"
+                               :y "0%"
+                               :width "100%"
+                               :height "4%"
+                               :anchor "top center")
+           :exclusive true
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "dock"
+           :use-alpha true
+    (bar))
+
+;; BAR ;;
+
+(defwidget bar []
+(box    :orientation "h"
+        :valign "center"
+        :vexpand false
+        :hexpand false
+        :class "bar"
+    (box :halign "fill" :hexpand true :valign  "center" (bar_left))
+    (box :halign "fill" :hexpand true :valign  "center"  (bar_center))
+    (box :halign "fill" :hexpand true :valign "center"  (bar_right))
+))
+
+(defwidget bar_left []
+    (box    :orientation "horizontal"
+            :halign "center"   
+    (workspaces)
+    ))
+
+(defwidget bar_center []
+    (box    :orientation "horizontal"
+            :halign "center"   
+    cats))
+
+(defwidget bar_right []
+    (box    :orientation "horizontal"
+            :halign "fill"   
+            :valign "center"
+            :vexpand false
+            :hexpand false
+            :spacing -100
+            :class "bar_right"
+    (sound)
+    (delimeter)
+    (net)
+    (delimeter)
+    (sysmonitor)
+    (delimeter)
+    (battery)
+    (delimeter)
+    (nicetime)
+    ))
+
+(defwidget nicetime []
+    (box :width 0 "" 
+        (eventbox   :onhover  "eww update showCal=true"
+                    :onhoverlost "eww update showCal=false"
+                    :width 0
+        time)
+    "")
+)
+
+(defwidget battery []
+(box    :orientation "horizontal" 
+        :halign "center"
+        :width 0
+    ""(eventbox     :onhover `eww update showPowerModes=true && eww update currentPowerMode="$(./Scripts/getpprof.sh)"`
+    :onhover  "eww update showPowerModes=true"
+                    :onhoverlost "eww update showPowerModes=false"
+                    :width 0
+        battery)
+    "")
+)
+
+(defwidget net []
+(box    :orientation "horizontal" 
+        :halign "center"
+network))
+
+
+(defwidget workspaces []
+    (box    :orientation "horizontal"
+            :halign "center"
+            :class "workspaces"
+            
+    workspace)
+)
+
+;;CALENDAR;;
+
+(defwindow calendarContainer    
+        :monitor 0
+        :geometry (geometry     :x "1%"
+                                :y "0%"
+                                :width "200px"
+                                :height "0px"
+                                :anchor "top right")
+        :exclusive false
+(superCalendar))
+
+(defwidget superCalendar []
+(revealer :reveal {showCal? true:false} :transition "slidedown" :duration "500ms"  
+  (literal :class {showCal ? "calclass" : "idk"}  :content {showCal ? cal : nothing})
+  )
+)
+
+;; SOUND ;;
+
+(defpoll volLevel :interval "1s" `./Scripts/getsound.sh`)
+(defvar showSound false)
+(defvar openSoundControl "hyprctl dispatch exec pavucontrol")
+
+(defwidget sound []
+(box :halign "center"
+    (soundP1)
+    (soundP2)
+))
+
+(defwidget soundP1 []
+    (eventbox   :onhover "eww update showSound=true"
+                :onhoverlost "eww update showSound=false"
+             (box :halign "center" :class "none" :width 0 
+                (revealer   :reveal showSound  :transition "slideleft" 
+                    (scale  :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%"
+                            :value {showSound ? volLevel : 0}
+                            :width 50 
+                            :class "volbar" 
+                            :flipped true 
+                            :orientation "horizontal" 
+                            :min 0 
+                            :max 101)))
+))
+
+(defwidget soundP2 []
+   (eventbox    :onhover "eww update showSound=true"
+                :onhoverlost "eww update showSound=false"
+                :halign "center"
+                :onclick openSoundControl
+ "  "))
+
+ ;; SYSTEM MONITOR ;;
+(defvar showSysInfo false)
+(defpoll temps :interval '10s' `echo "$(( $(cat /sys/class/thermal/thermal_zone0/temp) / 1000 ))°C"
+`)
+
+(defwindow  sysmonitor    
+        :monitor 0
+        :geometry (geometry     :x "12.5%"
+                                :y "0%"
+                                :width "150px"
+                                :height "0px"
+                                :anchor "top right")
+        :exclusive false
+(sysinfo))
+
+(defwidget sysinfo []
+(revealer   :reveal showSysInfo
+            :transition "slidedown"
+    (box    :class "sysInfoContainer"
+        :orientation "v"
+        (box :class "sysInfoEntry" "󰉉 ${round(EWW_RAM.used_mem_perc, 0)}%")
+        (box :class "sysInfoEntry" "  ${round(EWW_CPU.avg, 0)}%")
+        (box :class "sysInfoEntry" " ${temps}")
+        (box :class "sysInfoEntry" " 100%")
+)))
+
+
+(defwidget sysmonitor []
+    (box :width 0 "" (eventbox  
+                :onhover "eww update showSysInfo=true"
+                :onhoverlost "eww update showSysInfo=false"  "") "" )
+ )
+
+;; POWER PROFILES ;;
+(defvar showPowerModes false)
+(defvar currentPowerMode " ")
+(defvar changePowerMode `./Scripts/switchpprof.sh && eww update currentPowerMode="$(./Scripts/getpprof.sh)"`)
+
+(defwindow  powermode    
+        :monitor 0
+        :geometry (geometry     :x "7.5%"
+                                :y "0%"
+                                :width "100px"
+                                :height "0px"
+                                :anchor "top right")
+        :exclusive false
+(powermode))
+
+(defwidget powermode []
+(revealer   :transition "slidedown"
+            :reveal showPowerModes
+        (eventbox   :onhover `eww update showPowerModes=true&& eww update currentPowerMode="$(./Scripts/getpprof.sh)"`
+                    :onhoverlost "eww update showPowerModes=false"
+                    :halign "center"
+                    :timeout "2000ms"
+            (box    :width 120
+                    :class "pmodeContainer"
+                (button :class "pmodeButton"
+                        :onclick changePowerMode
+                        :timeout "2000ms"
+                        currentPowerMode
+                )
+            )            
+        )
+    )
+)
+
+;; DELIMETERS ;;
+(defwidget delimeter []
+    (box :class "delimeter" ""  "|" "")
+)
